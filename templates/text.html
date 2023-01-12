@@ -1,0 +1,20 @@
+<div class="row g-2">
+  <div class="col-md">
+    <div class="form-floating">
+      <select class="form-select mx-auto w-auto" name="pkmn" id="pkmn">
+        <option disable selected>Pokemon</option>
+        {% for i in pokemon %}
+        <option>{{ i }}</option>
+        {% endfor %}
+      </select>
+      <label for="floatingSelectGrid">Works with selects</label>
+    </div>
+  </div>
+  <div class="col-md">
+    <div class="form-floating">
+      <input autocomplete="off" class="form-control mx-auto w-auto" id="number"
+      name="number" type"number" maxlength="3" placeholder="Number" />
+      <label for="floatingInputGrid">Number</label>
+    </div>
+  </div>
+</div>

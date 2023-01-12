@@ -1,0 +1,83 @@
+{% extends "layout.html" %} {% block title %} Create {% endblock %} {% block
+main %}
+<h1 class="display-3">Create</h1>
+<br />
+<form action="/create" method="post" class="container rounded-3 border p-5">
+  <div class="row mb-3 w-auto">
+    <label for="title" class="col-sm-1 col-form-label" align="left"
+      >Title</label
+    >
+    <div class="col-sm-10">
+      <input
+        autocomplete="off"
+        autofocus
+        class="form-control"
+        id="title"
+        name="title"
+        placeholder="CodeClip Title*"
+        type="text"
+      />
+    </div>
+  </div>
+  <div class="row mb-3">
+    <label for="key" class="col-sm-1 col-form-label" align="left">Key</label>
+    <div class="col-sm-10">
+      <input
+        autocomplete="off"
+        autofocus
+        class="form-control"
+        id="key"
+        name="key"
+        placeholder="Key"
+        type="text"
+        value="{{hash}}"
+      />
+    </div>
+  </div>
+  <div class="row mb-3">
+    <label for="lang" class="col-sm-1 col-form-label" align="left"
+      >Language</label
+    >
+    <div class="col-sm-10">
+      <input
+        autocomplete="off"
+        autofocus
+        class="form-control"
+        id="lang"
+        name="lang"
+        placeholder="Language"
+        type="text"
+      />
+    </div>
+  </div>
+  <div class="row mb-3">
+    <label for="code" class="col-sm-1 col-form-label" align="left">Code</label>
+    <div class="col-sm-10">
+      <textarea
+        class="form-control"
+        placeholder="Paste Code*"
+        id="code"
+        name="code"
+        style="height: 15rem"
+      ></textarea>
+    </div>
+  </div>
+  <div class="row mb-3">
+    <label for="pw" class="col-sm-1 col-form-label" align="left"
+      >Password</label
+    >
+    <div class="col-sm-10">
+      <input
+        autocomplete="off"
+        autofocus
+        class="form-control"
+        id="pw"
+        name="pw"
+		type="password"
+        placeholder="Password"
+      />
+    </div>
+  </div>
+  <button class="btn btn-primary" type="submit">Create</button>
+</form>
+{% endblock %}
