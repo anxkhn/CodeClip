@@ -4,32 +4,35 @@ main %}
 <br />
 <div class="border rounded-3 container p-5">
   {% for i in query %}
-<div class="table-responsive">  
-  <table class="table table-borderless">
-    <thead>
-      <tr>
-        <th>Title</th>
-        <th>Key</th>
-        <th>Language</th>
-        <th>Time</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td>{{ i.title }}</td>
-        <td>{{ i.key }}</td>
-        <td>{{ i.lang }}</td>
-        <td>{{ i.time }}</td>
-        <br />
-      </tr>
-    </tbody>
-  </table>
+  <div class="table-responsive">
+    <table class="table table-borderless">
+      <thead>
+        <tr>
+          <th>Title</th>
+          <th>Key</th>
+          <th>Language</th>
+          <th>Time</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>{{ i.title }}</td>
+          <td>{{ i.key }}</td>
+          <td>{{ i.lang }}</td>
+          <td>{{ i.time }}</td>
+          <br />
+        </tr>
+      </tbody>
+    </table>
   </div>
-
   <h5 align="left">Code:</h5>
   <pre>
       <code id="copy" class="form-control language-clike">{{ i.code }}</code>
     </pre>
   {% endfor %}
+  <br />
+  <img
+    src="{{ qrcode(url,border=4,error_correction='M',icon_img='logo_qr.png')}}"
+  />
 </div>
 {% endblock %}

@@ -9,6 +9,9 @@ from werkzeug.security import check_password_hash, generate_password_hash
 
 from helpers import login_required
 
+from flask_qrcode import QRcode
+
+
 pokemon = ["Arbok", "Arcanine", "Abra", "Alakazam", "Aerodactyl", "Articuno", "Bulbasaur", "Blastoise", "Butterfree", "Beedrill", "Bellsprout", "Charmander", "Charmeleon", "Charizard", "Caterpie", "Clefairy", "Clefable", "Cloyster", "Cubone", "Chansey", "Diglett", "Dugtrio", "Doduo", "Dodrio", "Dewgong", "Drowzee", "Ditto", "Dratini", "Dragonair", "Dragonite", "Ekans", "Electrode", "Exeggcute", "Exeggutor", "Electabuzz", "Eevee", "Fearow", "Farfetchd", "Flareon", "Golbat", "Gloom", "Golduck", "Growlithe", "Geodude", "Graveler", "Golem", "Grimer", "Gastly", "Gengar", "Goldeen", "Gyarados", "Haunter", "Hypno", "Hitmonlee", "Hitmonchan", "Horsea", "Ivysaur", "Jigglypuff", "Jynx", "Jolteon", "Kakuna", "Kadabra", "Krabby", "Kingler", "Koffing", "Kangaskhan", "Kabuto", "Kabutops", "Lickitung", "Lapras", "Metapod", "Meowth", "Mankey", "Machop",
            "Machoke", "Machamp", "Magnemite", "Magneton", "Muk", "Marowak", "Magmar", "Magikarp", "Moltres", "Mewtwo", "Mew", "Nidorina", "Nidoqueen", "Nidoran", "Nidorino", "Nidoking", "Ninetales", "Oddish", "Onix", "Omanyte", "Omastar", "Pidgey", "Pidgeotto", "Pidgeot", "Pikachu", "Paras", "Parasect", "Persian", "Psyduck", "Primeape", "Poliwag", "Poliwhirl", "Poliwrath", "Ponyta", "Pinsir", "Porygon", "Rattata", "Raticate", "Raichu", "Rapidash", "Rhyhorn", "Rhydon", "Squirtle", "Spearow", "Sandshrew", "Sandslash", "Slowpoke", "Slowbro", "Seel", "Shellder", "Seadra", "Seaking", "Staryu", "Starmie", "Scyther", "Snorlax", "Tentacool", "Tentacruel", "Tangela", "Tauros", "Venusaur", "Vulpix", "Vileplume", "Venonat", "Venomoth", "Victreebel", "Voltorb", "Vaporeon", "Wartortle", "Weedle", "Wigglytuff", "Weepinbell", "Weezing", "Zubat", "Zapdos"]
 
@@ -20,6 +23,8 @@ def gen_key():
 
 # Configure application
 app = Flask(__name__)
+# QRApp
+QRcode(app)
 
 # Ensure templates are auto-reloaded
 app.config["TEMPLATES_AUTO_RELOAD"] = True
@@ -140,14 +145,17 @@ def key():
         if check_password_hash(pw2, pw):
             query = db.execute(
                 "SELECT title,key,lang,time,code FROM history WHERE key = ?", key)
+            url = request.host_url + key
         elif pw2 == pw:
             query = db.execute(
                 "SELECT title,key,lang,time,code FROM history WHERE key = ?", key)
+            url = request.host_url + key
+
         else:
             flash("Incorrect Password", "red")
             return redirect("/")
 
-    return render_template("key.html", query=query)
+    return render_template("key.html", query=query, url=url)
 
 
 @app.route("/login", methods=["GET", "POST"])
