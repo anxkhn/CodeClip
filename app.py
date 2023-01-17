@@ -339,3 +339,13 @@ def update():
                 return redirect('/dashboard')
 
         return render_template("update.html", query=query)
+
+
+@app.route('/<key>')
+def url_redirect(key):
+    try:
+        pw = db.execute("SELECT pw FROM history WHERE key = ?", key)[0]["pw"]
+        return redirect("/key?key="+key+"&pw="+pw)
+    except:
+        flash("Invalid URL", "yellow")
+        return redirect('/')
