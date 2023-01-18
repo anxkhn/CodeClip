@@ -2,27 +2,33 @@
 main %}
 <h1 class="display-3">Login</h1>
 <br />
-<form action="/login" method="post" class="border rounded-3 container p-5">
-  <div class="mb-3">
-    <input
-      autocomplete="off"
-      autofocus
-      class="form-control mx-auto w-auto"
-      id="username"
-      name="username"
-      placeholder="Username"
-      type="text"
-    />
+<div class="container p-5">
+  <div class="row">
+    <div class="col-lg-6 mx-auto border rounded-3">
+      <form action="/login" method="post" class="container p-5">
+        <div class="mb-3">
+          <input
+            autocomplete="off"
+            autofocus
+            class="form-control mx-auto w-auto"
+            id="username"
+            name="username"
+            placeholder="Username"
+            type="text"
+          />
+        </div>
+        <div class="mb-3">
+          <input
+            class="form-control mx-auto w-auto"
+            id="password"
+            name="password"
+            placeholder="Password"
+            type="password"
+          />
+        </div>
+        <button class="btn btn-primary" type="submit">Log In</button>
+      </form>
+      {% endblock %}
+    </div>
   </div>
-  <div class="mb-3">
-    <input
-      class="form-control mx-auto w-auto"
-      id="password"
-      name="password"
-      placeholder="Password"
-      type="password"
-    />
-  </div>
-  <button class="btn btn-primary" type="submit">Log In</button>
-</form>
-{% endblock %}
+</div>

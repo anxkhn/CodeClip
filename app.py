@@ -366,6 +366,8 @@ def url_redirect(key):
                 0]["pw"]
             return redirect("/key?key="+key+"&pw="+pw)
         else:
+            flash(
+                "Please enter password", "blue")
             return redirect("/pw_req?key="+key)
 
     except:

@@ -1,13 +1,11 @@
 {% extends "layout.html" %} {% block title %} Log In {% endblock %} {% block
 main %}
-<h1 class="display-3">Access Clip</h1>
-<br />
-<div class="row">
-  <div class="col-lg-6 mx-auto">
-    <div class="card">
-      <form action="/key" method="post">
+<h1 class="display-3">Protected Clip</h1>
+<div class="container p-5">
+  <div class="row">
+    <div class="col-lg-6 mx-auto border rounded-3">
+      <form action="/key" method="post" class="container p-5">
         <div class="card-header">
-          <br />
           <div class="mb-3">
             <input
               autocomplete="off"
@@ -30,10 +28,7 @@ main %}
               type="password"
             />
           </div>
-          <br />
           <button class="btn btn-primary" type="submit">View Clip</button>
-          <br />
-          <br />
         </div>
       </form>
       {% endblock %}

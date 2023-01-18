@@ -8,18 +8,13 @@ main %}
     src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"
   ></script>
 </head>
-<body classname="snippet-body">
+<body>
   <div class="container p-5">
-    <div class="row mb-4">
-      <div class="col-lg-8 mx-auto text-center">
-        <h1 class="display-3">Enter Key</h1>
-      </div>
-    </div>
-    <!-- End -->
+    <h1 class="display-3">Enter Key</h1>
+    <br />
     <div class="row">
-      <div class="col-lg-6 mx-auto">
-        <div class="card">
-          <form action="/key" method="post">
+      <div class="col-lg-6 mx-auto border rounded-3">
+          <form action="/key" method="post" class="container p-5">
             <div class="card-header">
               <!-- Auto Key form tabs -->
               <ul
@@ -59,9 +54,14 @@ main %}
                     </select>
                   </div>
                   <div class="mb-3">
-                    <input autocomplete="off" class="form-control mx-auto w-50"
-                    id="number" name="number" type"number" maxlength="3"
-                    placeholder="Number" />
+                    <input
+                      autocomplete="off"
+                      class="form-control mx-auto w-50"
+                      id="number"
+                      name="number"
+                      type="number"
+                      placeholder="Number"
+                    />
                   </div>
                 </div>
                 <!-- End -->
@@ -90,42 +90,39 @@ main %}
                     type="password"
                   />
                 </div>
-                <br />
+                <br>
                 <button id="view" class="btn btn-primary" type="submit">
                   View Clip
                 </button>
-                <br /><br />
               </div>
             </div>
           </form>
         </div>
-        {% if not session["user_id"] %}
-        <br />
-        <p class="lead">
-          Want to create your own <em>easy to remember</em> clips?
-          <a href="/register">Register Now!</a>
-        </p>
-
-        {% endif %}
       </div>
-      <script
-        type="text/javascript"
-        src="https://stackpath.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.bundle.min.js"
-      ></script>
-      <script type="text/javascript">
-        $(function () {
-          $('[data-toggle="tooltip"]').tooltip();
-        });
-      </script>
-      <script type="text/javascript">
-        var myLink = document.querySelectorAll('a[href="#"]');
-        myLink.forEach(function (link) {
-          link.addEventListener("click", function (e) {
-            e.preventDefault();
-          });
-        });
-      </script>
+      {% if not session["user_id"] %} 
+      <p class="lead">
+        Want to create your own <em>easy to remember</em> clips?
+        <a href="/register">Register Now!</a>
+      </p>
+      {% endif %}
     </div>
+    <script
+      type="text/javascript"
+      src="https://stackpath.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.bundle.min.js"
+    ></script>
+    <script type="text/javascript">
+      $(function () {
+        $('[data-toggle="tooltip"]').tooltip();
+      });
+    </script>
+    <script type="text/javascript">
+      var myLink = document.querySelectorAll('a[href="#"]');
+      myLink.forEach(function (link) {
+        link.addEventListener("click", function (e) {
+          e.preventDefault();
+        });
+      });
+    </script>
   </div>
 </body>
 {% endblock %}

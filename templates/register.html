@@ -2,36 +2,42 @@
 main %}
 <h1 class="display-3">Register</h1>
 <br />
-<form action="/register" method="post" class="border rounded-3 container p-5">
-  <div class="mb-3">
-    <input
-      class="form-control mx-auto w-auto"
-      autofocus
-      id="username"
-      name="username"
-      placeholder="Username"
-      type="username"
-    />
+<div class="container p-5">
+  <div class="row">
+    <div class="col-lg-6 mx-auto border rounded-3">
+      <form action="/register" method="post" class="container p-5">
+        <div class="mb-3">
+          <input
+            class="form-control mx-auto w-auto"
+            autofocus
+            id="username"
+            name="username"
+            placeholder="Username"
+            type="username"
+          />
+        </div>
+        <div class="mb-3">
+          <input
+            class="form-control mx-auto w-auto"
+            id="password"
+            name="password"
+            placeholder="Password"
+            type="password"
+          />
+        </div>
+        <div class="mb-3">
+          <input
+            class="form-control mx-auto w-auto"
+            id="confirmation"
+            name="confirmation"
+            placeholder="Re-enter Password"
+            type="password"
+          />
+          <small class="text-muted">Password length must be atleast 8.</small>
+        </div>
+        <button class="btn btn-primary" type="submit">Register</button>
+      </form>
+      {% endblock %}
+    </div>
   </div>
-  <div class="mb-3">
-    <input
-      class="form-control mx-auto w-auto"
-      id="password"
-      name="password"
-      placeholder="Password"
-      type="password"
-    />
-  </div>
-  <div class="mb-3">
-    <input
-      class="form-control mx-auto w-auto"
-      id="confirmation"
-      name="confirmation"
-      placeholder="Re-enter Password"
-      type="password"
-    />
-    <small class="text-muted">Password length must be atleast 8.</small>
-  </div>
-  <button class="btn btn-primary" type="submit">Register</button>
-</form>
-{% endblock %}
+</div>
