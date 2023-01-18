@@ -63,6 +63,11 @@ def create():
         title = request.form.get("title")
         key = request.form.get("key")
         lang = request.form.get("lang")
+        pw = request.form.get("pw")
+        if pw == "":
+            pw_req = 0
+        else:
+            pw_req = 1
         pw = generate_password_hash(request.form.get("pw"))
         code = request.form.get("code")
         if title == "":
@@ -76,8 +81,8 @@ def create():
             return redirect('/create')
 
         try:
-            db.execute("INSERT INTO history (user_id ,title, key, lang ,code, pw) VALUES (? ,? ,? , ?, ?, ?)",
-                       user_id, title, key, lang, code, pw)
+            db.execute("INSERT INTO history (user_id ,title, key, lang ,code, pw, pw_req) VALUES (? ,? ,? , ?, ?, ?, ?)",
+                       user_id, title, key, lang, code, pw,  pw_req)
         except:
             flash("Choose a different key.", "red")
             return redirect('/create')
@@ -311,6 +316,11 @@ def update():
         key = request.form.get("key")
         keynew = request.form.get("keynew")
         lang = request.form.get("lang")
+        pw = request.form.get("pw")
+        if pw == "":
+            pw_req = 0
+        else:
+            pw_req = 1
         pw = generate_password_hash(request.form.get("pw"))
         code = request.form.get("code")
         if title == "":
@@ -320,8 +330,8 @@ def update():
             flash("Please enter the code", "yellow")
             return redirect('/dashboard')
         try:
-            db.execute("UPDATE history SET title = ?, key = ?, lang = ? , code = ? , pw = ?  WHERE key = ? AND user_id = ? ",
-                       title, keynew, lang, code, pw, key, user_id)
+            db.execute("UPDATE history SET title = ?, key = ?, lang = ? , code = ? , pw = ? , pw_req = ? WHERE key = ? AND user_id = ? ",
+                       title, keynew, lang, code, pw, pw_req, key, user_id)
         except:
             flash("Choose a different key.", "red")
             return redirect('/dashboard')
