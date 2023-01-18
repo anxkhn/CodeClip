@@ -1,23 +1,17 @@
-import os
 import random
 
 from cs50 import SQL
 from flask import Flask, flash, redirect, render_template, request, session
 from flask_session import Session
-from tempfile import mkdtemp
 from werkzeug.security import check_password_hash, generate_password_hash
-
 from helpers import login_required
-
 from flask_qrcode import QRcode
-
 
 pokemon = ["Arbok", "Arcanine", "Abra", "Alakazam", "Aerodactyl", "Articuno", "Bulbasaur", "Blastoise", "Butterfree", "Beedrill", "Bellsprout", "Charmander", "Charmeleon", "Charizard", "Caterpie", "Clefairy", "Clefable", "Cloyster", "Cubone", "Chansey", "Diglett", "Dugtrio", "Doduo", "Dodrio", "Dewgong", "Drowzee", "Ditto", "Dratini", "Dragonair", "Dragonite", "Ekans", "Electrode", "Exeggcute", "Exeggutor", "Electabuzz", "Eevee", "Fearow", "Farfetchd", "Flareon", "Golbat", "Gloom", "Golduck", "Growlithe", "Geodude", "Graveler", "Golem", "Grimer", "Gastly", "Gengar", "Goldeen", "Gyarados", "Haunter", "Hypno", "Hitmonlee", "Hitmonchan", "Horsea", "Ivysaur", "Jigglypuff", "Jynx", "Jolteon", "Kakuna", "Kadabra", "Krabby", "Kingler", "Koffing", "Kangaskhan", "Kabuto", "Kabutops", "Lickitung", "Lapras", "Metapod", "Meowth", "Mankey", "Machop",
            "Machoke", "Machamp", "Magnemite", "Magneton", "Muk", "Marowak", "Magmar", "Magikarp", "Moltres", "Mewtwo", "Mew", "Nidorina", "Nidoqueen", "Nidoran", "Nidorino", "Nidoking", "Ninetales", "Oddish", "Onix", "Omanyte", "Omastar", "Pidgey", "Pidgeotto", "Pidgeot", "Pikachu", "Paras", "Parasect", "Persian", "Psyduck", "Primeape", "Poliwag", "Poliwhirl", "Poliwrath", "Ponyta", "Pinsir", "Porygon", "Rattata", "Raticate", "Raichu", "Rapidash", "Rhyhorn", "Rhydon", "Squirtle", "Spearow", "Sandshrew", "Sandslash", "Slowpoke", "Slowbro", "Seel", "Shellder", "Seadra", "Seaking", "Staryu", "Starmie", "Scyther", "Snorlax", "Tentacool", "Tentacruel", "Tangela", "Tauros", "Venusaur", "Vulpix", "Vileplume", "Venonat", "Venomoth", "Victreebel", "Voltorb", "Vaporeon", "Wartortle", "Weedle", "Wigglytuff", "Weepinbell", "Weezing", "Zubat", "Zapdos"]
 
 
 def gen_key():
-
     return ((random.choice(pokemon)).lower()+"-"+str(random.randint(100, 999)))
 
 
