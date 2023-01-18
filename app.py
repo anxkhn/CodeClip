@@ -109,18 +109,21 @@ def dashboard():
 @app.route("/key", methods=["GET", "POST"])
 def key():
     if request.method == "POST":
-        pkmn = (request.form['pkmn']).lower()
-        number = str(request.form['number'])
-        key = (pkmn+"-"+number)
+        try:
+            pkmn = (request.form['pkmn']).lower()
+            number = str(request.form['number'])
+            key = (pkmn+"-"+number)
 
-        # if pkmn == "pokemon":
-        #     flash("Please choose a pokemon", "yellow")
-        #     return redirect("/")
-        # if number == "":
-        #     flash("Please enter the number", "yellow")
-        #     return redirect("/")
+            # if pkmn == "pokemon":
+            #     flash("Please choose a pokemon", "yellow")
+            #     return redirect("/")
+            # if number == "":
+            #     flash("Please enter the number", "yellow")
+            #     return redirect("/")
 
-        if key == "choose an option-":
+            if key == "choose an option-":
+                key = request.form['key']
+        except:
             key = request.form['key']
         pw = request.form['pw']
 
@@ -151,8 +154,8 @@ def key():
             url = request.host_url + key
 
         else:
-            flash("Incorrect Password", "red")
-            return redirect("/")
+            flash("Invalid Password", "red")
+            return redirect("/pw_req?key="+key)
 
     return render_template("key.html", query=query, url=url)
 
@@ -356,8 +359,29 @@ def update():
 @app.route('/<key>')
 def url_redirect(key):
     try:
-        pw = db.execute("SELECT pw FROM history WHERE key = ?", key)[0]["pw"]
-        return redirect("/key?key="+key+"&pw="+pw)
+        pw_req = db.execute("SELECT pw_req FROM history WHERE key = ?", key)[
+            0]["pw_req"]
+        if pw_req == 0:
+            pw = db.execute("SELECT pw FROM history WHERE key = ?", key)[
+                0]["pw"]
+            return redirect("/key?key="+key+"&pw="+pw)
+        else:
+            return redirect("/pw_req?key="+key)
+
     except:
         flash("Invalid URL", "yellow")
         return redirect('/')
+
+
+@app.route("/pw_req")
+def pw_req():
+    key = request.args.get("key")
+
+    try:
+        id = db.execute("SELECT id FROM history WHERE key = ? ", key)[
+            0]["id"]
+    except:
+        flash("Invalid Key", "yellow")
+        return redirect('/')
+
+    return render_template("pw_req.html", key=key)

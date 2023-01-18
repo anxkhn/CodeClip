@@ -1,0 +1,42 @@
+{% extends "layout.html" %} {% block title %} Log In {% endblock %} {% block
+main %}
+<h1 class="display-3">Access Clip</h1>
+<br />
+<div class="row">
+  <div class="col-lg-6 mx-auto">
+    <div class="card">
+      <form action="/key" method="post">
+        <div class="card-header">
+          <br />
+          <div class="mb-3">
+            <input
+              autocomplete="off"
+              autofocus
+              class="form-control border-white mx-auto w-auto"
+              id="key"
+              name="key"
+              type="text"
+              placeholder="Key"
+              value="{{key}}"
+              readonly
+            />
+          </div>
+          <div class="mb-3">
+            <input
+              class="form-control mx-auto w-auto"
+              id="pw"
+              name="pw"
+              placeholder="Password"
+              type="password"
+            />
+          </div>
+          <br />
+          <button class="btn btn-primary" type="submit">View Clip</button>
+          <br />
+          <br />
+        </div>
+      </form>
+      {% endblock %}
+    </div>
+  </div>
+</div>
