@@ -12,6 +12,7 @@ main %}
           <th>Key</th>
           <th>Language</th>
           <th>Time</th>
+          <th>QR</th>
         </tr>
       </thead>
       <tbody>
@@ -20,7 +21,16 @@ main %}
           <td>{{ i.key }}</td>
           <td>{{ i.lang }}</td>
           <td>{{ i.time }}</td>
-          <br />
+          <td>
+            <img
+              class="rounded float-end"
+              src="{{ qrcode(url,border=4,error_correction='M',icon_img='logo_qr.png',box_size=5)}}"
+            />
+          </td>
+
+          <td>
+            <br />
+          </td>
         </tr>
       </tbody>
     </table>
@@ -31,8 +41,5 @@ main %}
       </pre>
   {% endfor %}
   <br />
-  <img
-    src="{{ qrcode(url,border=4,error_correction='M',icon_img='logo_qr.png')}}"
-  />
 </div>
 {% endblock %}
