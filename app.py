@@ -94,7 +94,7 @@ def dashboard():
 
     user_id = session["user_id"]
     query = db.execute(
-        "SELECT title,key,lang,code,time,pw FROM history WHERE user_id = ? GROUP BY time ORDER BY time DESC", user_id)
+        "SELECT title,key,lang,code,time,pw,pw_req FROM history WHERE user_id = ? GROUP BY time ORDER BY time DESC", user_id)
     if query:
         pass
     else:
