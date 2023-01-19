@@ -22,10 +22,12 @@ main %}
           <td>{{ i.lang }}</td>
           <td>{{ i.time }}</td>
           <td>
-            <img
-              class="rounded float-end"
-              src="{{ qrcode(url,border=4,error_correction='M',icon_img='logo_qr.png',box_size=5)}}"
-            />
+            <a href="{{url}}">
+              <img
+                class="rounded float-end"
+                src="{{ qrcode(url,border=4,error_correction='M',icon_img='logo_qr.png',box_size=5)}}"
+              />
+            </a>
           </td>
 
           <td>
