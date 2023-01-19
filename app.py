@@ -324,7 +324,7 @@ def update():
             flash("Please enter the code", "yellow")
             return redirect('/dashboard')
         try:
-            db.execute("UPDATE history SET title = ?, key = ?, lang = ? , code = ? , pw = ? , pw_req = ? WHERE key = ? AND user_id = ? ",
+            db.execute("UPDATE history SET title = ?, key = ?, lang = ? , code = ? , pw = ? , pw_req = ?, time = CURRENT_TIMESTAMP WHERE key = ? AND user_id = ? ",
                        title, keynew, lang, code, pw, pw_req, key, user_id)
         except:
             flash("Choose a different key.", "red")
