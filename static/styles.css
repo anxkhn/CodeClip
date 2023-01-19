@@ -1,24 +1,46 @@
-font-family: 'Lato', sans-serif;
+* {
+    font-family: 'Overpass', sans-serif;
+}
+
 /* Size for brand */
-nav .navbar-brand
-{
+nav .navbar-brand {
     font-size: xx-large;
 }
 
 /* Colors for brand */
-nav .navbar-brand .blue
-{
+nav .navbar-brand .blue {
     color: #537fbe;
 }
-nav .navbar-brand .red
-{
+
+nav .navbar-brand .red {
     color: #ea433b;
 }
-nav .navbar-brand .yellow
-{
+
+nav .navbar-brand .yellow {
     color: #f5b82e;
 }
-nav .navbar-brand .green
-{
+
+nav .navbar-brand .green {
     color: #2e944b;
+}
+.key-title{
+    display: flex;
+    font-size: 3em;
+}
+.key-container{
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 1em;
+}
+.key-info{
+    display: flex;
+    flex-direction: row;
+    margin: 0.5em 0;
+}
+.key-info div{
+    margin: 0 0.5em;
+    font-size: 1em;
+}
+i{
+    margin-right: 0.5em;
 }
