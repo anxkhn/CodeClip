@@ -164,9 +164,6 @@ def key():
 def login():
     """Log user in"""
 
-    # Forget any user_id
-    # session.clear()
-
     # User reached route via POST (as by submitting a form via POST)
     if request.method == "POST":
 
@@ -378,12 +375,4 @@ def url_redirect(key):
 @app.route("/pw_req")
 def pw_req():
     key = request.args.get("key")
-
-    try:
-        id = db.execute("SELECT id FROM history WHERE key = ? ", key)[
-            0]["id"]
-    except:
-        flash("Invalid Key", "yellow")
-        return redirect('/')
-
     return render_template("pw_req.html", key=key)
