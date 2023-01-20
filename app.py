@@ -145,7 +145,11 @@ def key():
                 "SELECT title,key,lang,time,code FROM history WHERE key = ?", key)
             url = request.host_url + key
         else:
-            flash("Invalid Password", "red")
+            if request.method == "POST":
+                flash("Invalid Password", "red")
+            else:
+                flash("Password Required", "blue")
+
             return redirect("/pw_req?key="+key)
 
     return render_template("key.html", query=query, url=url)
@@ -352,25 +356,7 @@ def update():
 
 @app.route('/<key>')
 def url_redirect(key):
-    try:
-        user_id = session["user_id"]
-    except:
-        user_id = 0
-    try:
-        pw_req = db.execute("SELECT pw_req FROM history WHERE key = ?", key)[
-            0]["pw_req"]
-        user_id2 = db.execute("SELECT user_id FROM history WHERE key = ?", key)[
-            0]["user_id"]
-        if pw_req == 0 or user_id == user_id2:
-            return redirect("/key?key="+key)
-        else:
-            flash(
-                "Please enter password", "blue")
-            return redirect("/pw_req?key="+key)
-
-    except:
-        flash("Invalid URL", "yellow")
-        return redirect('/')
+    return redirect("/key?key="+key)
 
 
 @app.route("/pw_req")
