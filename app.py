@@ -108,51 +108,42 @@ def dashboard():
 
 @app.route("/key", methods=["GET", "POST"])
 def key():
+    try:
+        user_id = session["user_id"]
+    except:
+        user_id = 0
     if request.method == "POST":
         try:
             pkmn = (request.form['pkmn']).lower()
             number = str(request.form['number'])
-            key = (pkmn+"-"+number)
-
-            # if pkmn == "pokemon":
-            #     flash("Please choose a pokemon", "yellow")
-            #     return redirect("/")
-            # if number == "":
-            #     flash("Please enter the number", "yellow")
-            #     return redirect("/")
-
-            if key == "choose an option-":
-                key = request.form['key']
         except:
+            key = request.form['key']
+        else:
+            key = (pkmn+"-"+number)
+        if key == "choose an option-":
             key = request.form['key']
         pw = request.form['pw']
 
     else:
         key = request.args.get("key")
-        pw = request.args.get("pw")
-        if key == None or key == "":
-            flash("Please enter a key", "yellow")
+        if key == None:
             return redirect("/")
-
-    query = ""
+        pw = ""
 
     try:
         pw2 = db.execute("SELECT pw FROM history WHERE key = ?", key)[
             0]["pw"]
+        userid_2 = db.execute("SELECT user_id FROM history WHERE key = ?", key)[
+            0]["user_id"]
     except:
         flash("Invalid Keys", "red")
         return redirect("/")
 
     else:
-        if check_password_hash(pw2, pw):
+        if check_password_hash(pw2, pw) or user_id == userid_2:
             query = db.execute(
                 "SELECT title,key,lang,time,code FROM history WHERE key = ?", key)
             url = request.host_url + key
-        elif pw2 == pw:
-            query = db.execute(
-                "SELECT title,key,lang,time,code FROM history WHERE key = ?", key)
-            url = request.host_url + key
-
         else:
             flash("Invalid Password", "red")
             return redirect("/pw_req?key="+key)
@@ -286,15 +277,22 @@ def register():
 @login_required
 def delete():
 
-    key = request.args.get("key")
-    pw = request.args.get("pw")
     user_id = session["user_id"]
+    key = request.args.get("key")
 
     try:
-        db.execute(
-            "DELETE FROM history WHERE key = ? AND pw = ? AND user_id= ?", key, pw, user_id)
+        user_id2 = db.execute("SELECT user_id FROM history WHERE key = ?", key)[
+            0]["user_id"]
+        if user_id == user_id2:
+            db.execute(
+                "DELETE FROM history WHERE key = ? AND user_id= ?", key, user_id)
+        else:
+            flash("Illegal User", "yellow")
+            return redirect('/dashboard')
+
     except:
-        flash("Does Not Exist", "yellow")
+        flash("Invalid Key", "yellow")
+        return redirect('/dashboard')
     else:
         flash("Deletion Successful", "green")
 
@@ -334,21 +332,20 @@ def update():
         return redirect('/dashboard')
     else:
         key = request.args.get("key")
-        pw = request.args.get("pw")
 
         try:
-            pw2 = db.execute("SELECT pw FROM history WHERE key = ? AND user_id = ?", key, user_id)[
-                0]["pw"]
-        except:
-            flash("Invalid Key", "yellow")
-            return redirect('/dashboard')
-        else:
-            if pw2 == pw:
+            user_id2 = db.execute("SELECT user_id FROM history WHERE key = ?", key)[
+                0]["user_id"]
+            if user_id == user_id2:
                 query = db.execute(
                     "SELECT title,key,lang,code FROM history WHERE key = ? AND user_id = ?", key, user_id)
             else:
-                flash("Invalid Hashes", "yellow")
+                flash("Illegal User", "yellow")
                 return redirect('/dashboard')
+
+        except:
+            flash("Invalid Key", "yellow")
+            return redirect('/dashboard')
 
         return render_template("update.html", query=query)
 
@@ -356,12 +353,16 @@ def update():
 @app.route('/<key>')
 def url_redirect(key):
     try:
+        user_id = session["user_id"]
+    except:
+        user_id = 0
+    try:
         pw_req = db.execute("SELECT pw_req FROM history WHERE key = ?", key)[
             0]["pw_req"]
-        if pw_req == 0:
-            pw = db.execute("SELECT pw FROM history WHERE key = ?", key)[
-                0]["pw"]
-            return redirect("/key?key="+key+"&pw="+pw)
+        user_id2 = db.execute("SELECT user_id FROM history WHERE key = ?", key)[
+            0]["user_id"]
+        if pw_req == 0 or user_id == user_id2:
+            return redirect("/key?key="+key)
         else:
             flash(
                 "Please enter password", "blue")
