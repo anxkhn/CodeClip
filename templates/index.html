@@ -9,121 +9,112 @@ main %}
   ></script>
 </head>
 <body>
+  <h1 class="display-3">Enter Key</h1>
   <div class="container p-5">
-    <h1 class="display-3">Enter Key</h1>
-    <br />
     <div class="row">
       <div class="col-lg-6 mx-auto border rounded-3 w-auto">
-          <form action="/key" method="post" class="container p-5">
-            <div class="card-header">
-              <!-- Auto Key form tabs -->
-              <ul
-                role="tablist"
-                class="nav bg-light nav-pills rounded nav-fill mb-3"
-              >
-                <li class="nav-item">
-                  <a
-                    data-toggle="pill"
-                    href="#auto_key"
-                    class="nav-link active"
-                  >
-                    Auto Generated Key
-                  </a>
-                </li>
-                <li class="nav-item">
-                  <a data-toggle="pill" href="#manual_key" class="nav-link">
-                    Manual Key
-                  </a>
-                </li>
-              </ul>
-              <!-- End -->
-              <!-- Form content -->
-              <div class="tab-content">
-                <!-- Auto Key info-->
-                <div id="auto_key" class="tab-pane fade show active pt-3">
-                  <div class="mb-3">
-                    <select
-                      class="form-select mx-auto"
-                      name="pkmn"
-                      id="pkmn"
-                    >
-                      <option disable selected>Choose an option</option>
-                      {% for i in pokemon %}
-                      <option>{{ i }}</option>
-                      {% endfor %}
-                    </select>
-                  </div>
-                  <div class="mb-3">
-                    <input
-                      autocomplete="off"
-                      class="form-control mx-auto"
-                      id="number"
-                      name="number"
-                      type="text"
-                      pattern="[1-9][0-9][0-9]" maxlength="3"
-                      placeholder="Number"
-                    />
-                  </div>
+        <form action="/key" method="post" class="container p-5">
+          <div class="card-header">
+            <!-- Auto Key form tabs -->
+            <ul
+              role="tablist"
+              class="nav bg-light nav-pills rounded nav-fill mb-3"
+            >
+              <li class="nav-item">
+                <a data-toggle="pill" href="#auto_key" class="nav-link active">
+                  Auto Generated Key
+                </a>
+              </li>
+              <li class="nav-item">
+                <a data-toggle="pill" href="#manual_key" class="nav-link">
+                  Manual Key
+                </a>
+              </li>
+            </ul>
+            <!-- End -->
+            <!-- Form content -->
+            <div class="tab-content">
+              <!-- Auto Key info-->
+              <div id="auto_key" class="tab-pane fade show active pt-3">
+                <div class="mb-3">
+                  <select class="form-select mx-auto" name="pkmn" id="pkmn">
+                    <option disable selected>Choose an option</option>
+                    {% for i in pokemon %}
+                    <option>{{ i }}</option>
+                    {% endfor %}
+                  </select>
                 </div>
-                <!-- End -->
-                <!-- manual_key info -->
-                <div id="manual_key" class="tab-pane fade pt-3">
-                  <div class="mb-3">
-                    <input
-                      autocomplete="off"
-                      class="form-control mx-auto"
-                      id="key"
-                      name="key"
-                      type="text"
-                      placeholder="Key"
-                    />
-                  </div>
-                </div>
-                <!-- End -->
-                <!-- End -->
                 <div class="mb-3">
                   <input
                     autocomplete="off"
                     class="form-control mx-auto"
-                    id="pw"
-                    name="pw"
-                    placeholder="Password"
+                    id="number"
+                    name="number"
                     type="text"
+                    pattern="[1-9][0-9][0-9]"
+                    maxlength="3"
+                    placeholder="Number"
                   />
                 </div>
-                <br>
-                <button id="view" class="btn btn-primary" type="submit">
-                  View Clip
-                </button>
               </div>
+              <!-- End -->
+              <!-- manual_key info -->
+              <div id="manual_key" class="tab-pane fade pt-3">
+                <div class="mb-3">
+                  <input
+                    autocomplete="off"
+                    class="form-control mx-auto"
+                    id="key"
+                    name="key"
+                    type="text"
+                    placeholder="Key"
+                  />
+                </div>
+              </div>
+              <!-- End -->
+              <!-- End -->
+              <div class="mb-3">
+                <input
+                  autocomplete="off"
+                  class="form-control mx-auto"
+                  id="pw"
+                  name="pw"
+                  placeholder="Password"
+                  type="text"
+                />
+              </div>
+              <br />
+              <button id="view" class="btn btn-primary" type="submit">
+                View Clip
+              </button>
             </div>
-          </form>
-        </div>
+          </div>
+        </form>
       </div>
-      {% if not session["user_id"] %} 
-      <p class="lead">
-        Want to create your own <em>easy to remember</em> clips?
-        <a href="/register">Register Now!</a>
-      </p>
-      {% endif %}
     </div>
-    <script
-      type="text/javascript"
-      src="https://stackpath.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.bundle.min.js"
-    ></script>
-    <script type="text/javascript">
-      $(function () {
-        $('[data-toggle="tooltip"]').tooltip();
-      });
-    </script>
-    <script type="text/javascript">
-      var myLink = document.querySelectorAll('a[href="#"]');
-      myLink.forEach(function (link) {
-        link.addEventListener("click", function (e) {
-          e.preventDefault();
-        });
-      });
-    </script>
+    {% if not session["user_id"] %}
+    <p class="lead">
+      Want to create your own <em>easy to remember</em> clips?
+      <a href="/register">Register Now!</a>
+    </p>
+    {% endif %}
   </div>
+  <script
+    type="text/javascript"
+    src="https://stackpath.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.bundle.min.js"
+  ></script>
+  <script type="text/javascript">
+    $(function () {
+      $('[data-toggle="tooltip"]').tooltip();
+    });
+  </script>
+  <script type="text/javascript">
+    var myLink = document.querySelectorAll('a[href="#"]');
+    myLink.forEach(function (link) {
+      link.addEventListener("click", function (e) {
+        e.preventDefault();
+      });
+    });
+  </script>
 </body>
 {% endblock %}
