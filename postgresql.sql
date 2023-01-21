@@ -1,0 +1,17 @@
+CREATE TABLE users (
+  id SERIAL PRIMARY KEY, 
+  username TEXT NOT NULL UNIQUE, hash TEXT NOT NULL
+);
+CREATE TABLE history (
+  id SERIAL PRIMARY KEY, 
+  user_id INTEGER NOT NULL, 
+  title TEXT NOT NULL, 
+  key TEXT UNIQUE, 
+  lang TEXT, 
+  code TEXT NOT NULL, 
+  pw TEXT, 
+  time TIMESTAMP DEFAULT CURRENT_TIMESTAMP, 
+  pw_req NUMERIC (1) DEFAULT (0) NOT NULL, 
+  FOREIGN KEY (user_id) REFERENCES users (id)
+);
+
