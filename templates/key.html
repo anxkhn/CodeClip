@@ -1,5 +1,5 @@
-{% extends "layout.html" %} {% block title %} Keys {% endblock %} {% block
-main %}
+{% extends "layout.html" %} {% block title %} Keys {% endblock %} {% block main
+%}
 <h1 class="display-3">Key</h1>
 <br />
 <div class="border rounded-3 container p-5">
@@ -57,10 +57,10 @@ main %}
     </div>
   </div>
   <h5 align="left">Code:</h5>
-  <pre>
-        <code id="copy" class="form-control language-clike">{{ i.code }}</code>
-      </pre>
+  <pre><code id="copy" class="form-control language-clike" style="white-space: pre-wrap;
+    overflow: auto;
+    word-break: break-word;
+">{{ i.code }}</code></pre>
   {% endfor %}
-  <br />
 </div>
 {% endblock %}
