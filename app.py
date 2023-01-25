@@ -6,7 +6,6 @@ from flask_session import Session
 from werkzeug.security import check_password_hash, generate_password_hash
 from helpers import login_required
 from flask_qrcode import QRcode
-
 pokemon = ["Arbok", "Arcanine", "Abra", "Alakazam", "Aerodactyl", "Articuno", "Bulbasaur", "Blastoise", "Butterfree", "Beedrill", "Bellsprout", "Charmander", "Charmeleon", "Charizard", "Caterpie", "Clefairy", "Clefable", "Cloyster", "Cubone", "Chansey", "Diglett", "Dugtrio", "Doduo", "Dodrio", "Dewgong", "Drowzee", "Ditto", "Dratini", "Dragonair", "Dragonite", "Ekans", "Electrode", "Exeggcute", "Exeggutor", "Electabuzz", "Eevee", "Fearow", "Farfetchd", "Flareon", "Golbat", "Gloom", "Golduck", "Growlithe", "Geodude", "Graveler", "Golem", "Grimer", "Gastly", "Gengar", "Goldeen", "Gyarados", "Haunter", "Hypno", "Hitmonlee", "Hitmonchan", "Horsea", "Ivysaur", "Jigglypuff", "Jynx", "Jolteon", "Kakuna", "Kadabra", "Krabby", "Kingler", "Koffing", "Kangaskhan", "Kabuto", "Kabutops", "Lickitung", "Lapras", "Metapod", "Meowth", "Mankey", "Machop",
            "Machoke", "Machamp", "Magnemite", "Magneton", "Muk", "Marowak", "Magmar", "Magikarp", "Moltres", "Mewtwo", "Mew", "Nidorina", "Nidoqueen", "Nidoran", "Nidorino", "Nidoking", "Ninetales", "Oddish", "Onix", "Omanyte", "Omastar", "Pidgey", "Pidgeotto", "Pidgeot", "Pikachu", "Paras", "Parasect", "Persian", "Psyduck", "Primeape", "Poliwag", "Poliwhirl", "Poliwrath", "Ponyta", "Pinsir", "Porygon", "Rattata", "Raticate", "Raichu", "Rapidash", "Rhyhorn", "Rhydon", "Squirtle", "Spearow", "Sandshrew", "Sandslash", "Slowpoke", "Slowbro", "Seel", "Shellder", "Seadra", "Seaking", "Staryu", "Starmie", "Scyther", "Snorlax", "Tentacool", "Tentacruel", "Tangela", "Tauros", "Venusaur", "Vulpix", "Vileplume", "Venonat", "Venomoth", "Victreebel", "Voltorb", "Vaporeon", "Wartortle", "Weedle", "Wigglytuff", "Weepinbell", "Weezing", "Zubat", "Zapdos"]
 
@@ -174,7 +173,7 @@ def login():
 
         # Query database for username
         rows = db.execute("SELECT * FROM users WHERE username = ?",
-                          request.form.get("username"))
+                          request.form.get("username").lower().strip())
 
         # Ensure username exists and password is correct
         if len(rows) != 1 or not check_password_hash(rows[0]["hash"], request.form.get("password")):
@@ -207,7 +206,7 @@ def logout():
 def register():
     """Register user"""
     if (request.method == "POST"):
-        username = request.form.get('username')
+        username = request.form.get('username').lower().strip()
         password = request.form.get('password')
         confirmation = request.form.get('confirmation')
 
@@ -363,3 +362,16 @@ def url_redirect(key):
 def pw_req():
     key = request.args.get("key")
     return render_template("pw_req.html", key=key)
+
+
+@app.route('/<key>/raw')
+def raw_redirect(key):
+    return redirect("/raw?key="+key)
+
+
+@app.route("/raw")
+def raw():
+    key = request.args.get("key")
+    code = db.execute(
+        "SELECT code from history WHERE key = ?", key)[0]["code"]
+    return render_template("raw.html", code=code)
