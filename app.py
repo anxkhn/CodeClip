@@ -50,7 +50,7 @@ def index():
 @app.route("/create", methods=["GET", "POST"])
 @login_required
 def create():
-    hash = (gen_key())
+
     if request.method == "POST":
         user_id = session["user_id"]
         title = request.form.get("title")
@@ -84,6 +84,7 @@ def create():
         return redirect('/dashboard')
 
     else:
+        hash = (gen_key())
         return render_template("create.html", hash=hash)
 
 

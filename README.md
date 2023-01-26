@@ -19,19 +19,19 @@ You will also need to have Flask and flask_sqlalchemy package installed in order
 
 1. Clone the repository to your local machine
 
-```git clone https://github.com/anxkhn/codeclip.git```
+`git clone https://github.com/anxkhn/codeclip.git`
 
 2. Navigate to the project directory
 
-```cd codeclip```
+`cd codeclip`
 
 3. Install the necessary packages
 
-```pip install -r requirements.txt```
+`pip install -r requirements.txt`
 
 4. Start the application
 
-```flask run```
+`flask run`
 
 The application will now be running on `http://127.0.0.1:5000`
 
@@ -42,10 +42,13 @@ This app is intended to be deployed in a web server, you can use [PythonAnywhere
 ## Built With
 
 - [CS50](https://github.com/cs50/python-cs50) - Harvard CS50's library for Python
-- [Flask](https://flask.palletsprojects.com/) - A Python web framework
+- [Flask](https://flask.palletsprojects.com/) - A microframework for Python web applications
 - [Flask-SQLAlchemy](https://flask-sqlalchemy.palletsprojects.com/) - An extension for Flask that adds support for SQLAlchemy
-- [Flask QRcode](https://github.com/marcoagner/Flask-QRcode) - A Flask extension to render QR codes on Jinja2 templates 
+- [Flask QRcode](https://github.com/marcoagner/Flask-QRcode) - A Flask extension to render QR codes on Jinja2 templates
+- [Werkzeug](http://werkzeug.pocoo.org/) - A Flask framework that implements WSGI for handling requests.
+- [Jinja2](http://jinja.pocoo.org/docs/2.10/) - A templating language for Python, used by Flask.
 - [PrismJS](https://github.com/PrismJS/prism) - Lightweight, robust, elegant syntax highlighting javascript library
+- [Bootstrap 5](https://getbootstrap.com/) - An open source design system for HTML, CSS, and JS.
 
 ## Contributing
 
