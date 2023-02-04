@@ -33,6 +33,7 @@ db = SQL("sqlite:///clips.db")
 # db = SQL("sqlite:////home/username/sitename/clips.db")
 
 
+
 @app.after_request
 def after_request(response):
     """Ensure responses aren't cached"""
@@ -171,13 +172,12 @@ def login():
         elif not request.form.get("password"):
             flash("Please Enter Password", "red")
             return redirect("/login")
-
+        username = request.form.get("username").lower().strip()
         # Query database for username
-        rows = db.execute("SELECT * FROM users WHERE username = ?",
-                          request.form.get("username").lower().strip())
-
+        rows = db.execute("SELECT * FROM users WHERE username = ?",username)
+        password = request.form.get("password")
         # Ensure username exists and password is correct
-        if len(rows) != 1 or not check_password_hash(rows[0]["hash"], request.form.get("password")):
+        if len(rows) != 1 or not check_password_hash(rows[0]["hash"], password):
             flash("Invalid username and/or password", "red")
             return redirect("/login")
 
