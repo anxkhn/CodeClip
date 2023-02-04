@@ -94,7 +94,7 @@ def dashboard():
 
     user_id = session["user_id"]
     query = db.execute(
-        "SELECT title,key,lang,SUBSTR(code, 1, 100) AS code,time,pw,pw_req FROM history WHERE user_id = ? GROUP BY time ORDER BY time DESC", user_id)
+        "SELECT title,key,lang,SUBSTR(code, 1, 100) AS code,time,pw,pw_req FROM history WHERE user_id = ? ORDER BY time DESC", user_id)
     if query:
         pass
     else:
@@ -326,7 +326,7 @@ def update():
             flash("Please enter the code", "yellow")
             return redirect('/dashboard')
         try:
-            db.execute("UPDATE history SET title = ?, key = ?, lang = ? , code = ? , pw = ? , pw_req = ?, WHERE key = ? AND user_id = ? ",
+            db.execute("UPDATE history SET title = ?, key = ?, lang = ? , code = ? , pw = ? , pw_req = ?, time = CURRENT_TIMESTAMP WHERE key = ? AND user_id = ? ",
                        title, keynew, lang, code, pw, pw_req, key, user_id)
         except:
             flash("Choose a different key.", "red")
@@ -376,3 +376,8 @@ def raw():
     code = db.execute(
         "SELECT code from history WHERE key = ?", key)[0]["code"]
     return render_template("raw.html", code=code)
+
+
+@app.route("/test")
+def test():
+    return render_template("test2.html")
